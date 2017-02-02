@@ -8,6 +8,8 @@ RUN yum install -y nfs-ganesha nfs-ganesha-vfs && yum -y clean all
 RUN mkdir -p /exports && chmod 777 /exports
 
 ADD vfs.conf /vfs.conf
+ADD entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 VOLUME /var/run
 
-ENTRYPOINT ["ganesha.nfsd", "-F", "-f", "/vfs.conf"]
+ENTRYPOINT ["/entrypoint.sh"]
